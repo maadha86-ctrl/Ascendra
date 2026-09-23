@@ -1,0 +1,14 @@
+node_modules/
+.gradle/
+build/
+app/build/
+*.apk
+*.jks
+.ssh/
+.config/
+.termux/
+*.log
+tunnel*.txt
+LIVE.txt
+app-release-unsigned.apk
+.ascendra/
