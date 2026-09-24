@@ -6,7 +6,7 @@ import java.net.URL
 import org.json.JSONObject
 
 object AscendraApi {
-    var BASE_URL = "https://alias-constitute-smith-glasses.trycloudflare.com"
+    var BASE_URL = "https://ascendra-7i8x.onrender.com"
     
     suspend fun getUniversities():String = withContext(Dispatchers.IO){
         try{ URL("$BASE_URL/api/universities").readText() }catch(e:Exception){ "Offline: 8 universities - SMU,VTU,MU,DU,MIT,Stanford,Oxford,CUSTOM" }

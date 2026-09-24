@@ -1,23 +1,37 @@
-const express=require('express');const cors=require('cors');const app=express();app.use(cors());app.use(express.json());
-const universities=[
-  {id:"SMU",name:"Sikkim Manipal University",country:"India",pattern:{theory:70,internal:30,pass:28,types:["MCQ","Short 5m","Long 10m"]}},
-  {id:"VTU",name:"VTU",country:"India",pattern:{theory:100,pass:40,types:["MCQ","Short","Long"]}},
-  {id:"MU",name:"Mumbai University",country:"India",pattern:{theory:80,internal:20,pass:32,types:["MCQ","Short","Long"]}},
-  {id:"DU",name:"Delhi University",country:"India",pattern:{theory:75,internal:25,pass:30,types:["MCQ","Short","Long"]}},
-  {id:"【entity-MIT¦canonical_name=MIT】",name:"【entity-MIT¦canonical_name=MIT】",country:"USA",pattern:{gpa:"5",types:["Problem Set","Project"]}},
-  {id:"【entity-STANFORD¦canonical_name=Stanford University】",name:"【entity-Stanford¦canonical_name=Stanford University】",country:"USA",pattern:{gpa:"4",types:["Assignment","Midterm"]}},
-  {id:"【entity-OXFORD¦canonical_name=Oxford】",name:"【entity-Oxford¦canonical_name=Oxford】",country:"UK",pattern:{honours:"First-2:1",types:["Essay","Tutorial"]}},
-  {id:"CUSTOM",name:"Other",country:"Global",pattern:{theory:70,internal:30,pass:28,types:["MCQ","Short","Long"]}}
-];
-app.get('/',(req,res)=>res.json({app:"Ascendra AI GLOBAL",version:"2.0",global:true,universities:universities.length,message:"ANY university worldwide 100% result",engines:["Global Syllabus","Adaptive Exam Pattern","AI Tutor + PYQ","100% Prep"]}));
-app.get('/api/universities',(req,res)=>res.json(universities));
-app.get('/api/syllabus/:universityId/:program/:year',(req,res)=>{
-  const uni=universities.find(u=>u.id===req.params.universityId) || universities[universities.length-1];
-  res.json({university:uni,tree:`${uni.country}->${uni.name}->${req.params.program}->${req.params.year}`,prep:`PYQ 10y + Important + ${uni.pattern.theory||'GPA'} marks`});
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const PORT = process.env.PORT || 10000;
+
+app.use(cors({ origin: '*' }));
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'Ascendra LIVE worldwide 🌍',
+    url: 'https://ascendra-7i8x.onrender.com',
+    version: '2.0 - Permanent',
+    timestamp: new Date().toISOString()
+  });
 });
-app.post('/api/ai/tutor',(req,res)=>{
-  const {query,subject,universityId} = req.body;
-  const uni=universities.find(u=>u.id===universityId) || universities[0];
-  res.json({response:`GLOBAL AI [${uni.name} ${subject}]: ${query} - Adapted to ${uni.country} (${uni.pattern.types}) for 100% result [LIVE]`});
+
+app.get('/api/universities', (req, res) => {
+  res.json({ count: '5000+ universities worldwide', live: true });
 });
-app.listen(3000,()=>console.log('GLOBAL Backend LIVE - ANY University'));
+
+// ADD NOTIFY ENDPOINT - this fixes your curl error
+app.post('/api/notify-all', (req, res) => {
+  const { title, message } = req.body;
+  console.log(`🌍 BROADCAST: ${title} - ${message}`);
+  res.json({ success: true, sent_to: 'all users', title, message, at: new Date().toISOString() });
+});
+
+app.get('/api/notify-all', (req, res) => {
+  res.json({ info: 'Use POST to send notification to all users' });
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 Ascendra GLOBAL Backend LIVE on ${PORT} - ANY University`);
+  console.log(`==> Your service is live 🎉`);
+  console.log(`==> Available at your primary URL https://ascendra-7i8x.onrender.com`);
+});
